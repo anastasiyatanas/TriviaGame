@@ -4,7 +4,7 @@
     top: -186px;
     float: left;
     position: relative;
-    height: 400px;
+   
     border: 2px solid darkgrey;
 }
 .buttons {
@@ -12,24 +12,3 @@
     
 }
 
-#button1 {
-    margin: 20px;
-    height: 30px;
-    width: 200px;
-    
-}
-#button2 {
-    margin: 20px;
-    height: 30px;
-    width: 200px;
-}
-#button3 {
-    margin: 20px;
-    height: 30px;
-    width: 200px;
-}
-#button4 {
-    margin: 20px;
-    height: 30px;
-    width: 200px;
-}

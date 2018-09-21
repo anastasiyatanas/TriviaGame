@@ -1,13 +1,15 @@
 
-
+var timer
 var startBtn
 $('#start').on('click', function(){
   $('#start').remove();
+  addQuestions();
+  timer=setInterval(countDown,1000)
 })
 var game = {
   questions:questions,
   currentQuestions:0,
-  counter:30,
+  counter:20,
   correct:0,
   incorrect:0,
   
@@ -47,37 +49,40 @@ var questions = [
 ];
 
 function countDown(){
-  game.counter;
+  game.counter--;
   $('#counter').html(game.counter);
   if(game.counter<=0){
     console.log("You Done!"); 
-    game.timeUp();
+    timeUp();
   }
 }
 function timeUp(){
-  clearInterval(intervalId);
+  clearInterval(timer);
   submitGame();
   alert("You Done!");
   console.log("You Done!");
 }
 function stopTimer() {
-  clearInterval(intervalId);
+  clearInterval(timer);
   submitGame();
 }
 function addQuestions() {
  $('.question-box').html("");
- for (var i=0; i=questions.length; i++){
+ for (var i=0; i < questions.length; i++){
    $('.question-box').append($("<h4>" + questions[i].question + "</h4>"));
    for (var k=0; k<questions[i].answers.length; k++) {
-     $('.question-box').append($("<input type='radio' value='"+ questions[i].answers[k] + "' name=question-" + i + "'>"+ questions[i].answers[k]+ "<br>"));
+     var questionRadioName = "question-"+i;
+     $('.question-box').append($("<input type='radio' value='"+ questions[i].answers[k] + "' name=" + questionRadioName + ">"+ questions[i].answers[k]+ "<br>"));
    }
    $('.question-box').append('<hr>');
+   $('#buttons').on('click', function(){
+    $('#start').append();
+  })
   }
 }
-   $('#subwrapper').append('<button class="answer-button"
-   id="button-'+i+'" data-name="'+questions[game.currentQuestion].answers[i]+'"';
+
  
-}
+
 
 function shuffleQuestions(){
     questions.sort(function(a, b){return 0.5 - Math.random()});
@@ -90,48 +95,30 @@ function shuffleAnswers(){
 }
 
 function submitGame() {
+  console.log("you");
     for (var i=0; i<questions.length; i++)  {
-        $.each($("input[name='question-" + i + "']:checked"), function() {
-            console.log($(this).attr('value'));
-            var userGuess = $(this).attr('value');
+      debugger
+       // $.each($("input[name='question-" + i + "']:checked"), function(index, value) {
+         // console.log(index, value);
+           // console.log($(this).attr('value'));
+           var questionName = "question-"+i;
+           var value = $("input[name="+questionName+"]:checked").val();
+           console.log(value);
+            var userGuess = value;
             if (userGuess === questions[i].answer) {
                 console.log('correct');
-                correct++;
+                game.correct++;
             } else {
                 console.log('incorrect');
-                incorrect++;
+                game.incorrect++;
             }
-        });  
+        //});  
     }
-    $('.correct').text(correct);
-    $('.incorrect').text(incorrect);
+    $('.correct').text(game.correct);
+    $('.incorrect').text(game.incorrect);
     $('.end-screen').show();
 }
 
 
 
-  //   function runTimer() {
-  //     counter = 10;
-  //     clearInterval(intervalId);
-  //     intervalId = setInterval(decrementTimer, 1000)
-  // }
-  
-  //   // start: function() {
-  //   //     timer = setInterval(game.countdown, 1000);
-  //   // }
-  //   $( "#start" ).click(function() {
-  //     alert( "Handler for .click() called." );
-  //   });
-  // <button id="button1">
-  //   <span id="choice1"></span>
-  // </button>
-  // <button id="button2">
-  //   <span id="choice2"></span>
-  // </button>
-  // <button id="button3">
-  //   <span id="choice3"></span>
-  // </button>
-  // <button id="button4">
-  //   <span id="choice4"></span>
-  // </button>
-  
+ 
